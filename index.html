@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tree Plantation Drive 🌿</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #b7f7b7, #ffffff);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* 🌧️ Rain effect */
+.rain {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("https://i.ibb.co/5R0vQ6d/rain.png");
+  opacity: 0.2;
+  animation: rainMove 0.3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rainMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 100px; }
+}
+
+/* 🌿 Header */
+header {
+  background: green;
+  color: white;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* 🌟 Quote */
+.quote {
+  margin: 15px;
+  font-style: italic;
+  color: #1b5e20;
+}
+
+/* 🌳 Counter */
+.counter-box {
+  margin: 20px auto;
+  padding: 20px;
+  width: 250px;
+  background: #eaffea;
+  border-radius: 12px;
+  box-shadow: 0 0 10px gray;
+}
+
+.counter {
+  font-size: 40px;
+  color: green;
+  font-weight: bold;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: green;
+  color: white;
+}
+
+button:hover {
+  background: darkgreen;
+}
+
+/* 📸 Upload box */
+.upload-box {
+  margin: 20px auto;
+  padding: 15px;
+  width: 80%;
+  max-width: 400px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 12px;
+}
+
+/* 🖼️ Gallery */
+#preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+#preview img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid green;
+  transition: 0.3s;
+}
+
+#preview img:hover {
+  transform: scale(1.1);
+}
+
+footer {
+  background: green;
+  color: white;
+  padding: 10px;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain"></div>
+
+<header>
+  <h1>🌿 Tree Plantation Drive 🌿</h1>
+  <p class="quote">“The best time to plant a tree is now” 🌱</p>
+</header>
+
+<!-- 🌳 Counter -->
+<div class="counter-box">
+  <h2>🌳 Trees Planted</h2>
+  <div class="counter" id="count">0</div>
+  <button onclick="addTree()">➕ Add Tree</button>
+  <button onclick="resetTree()">🔄 Reset</button>
+</div>
+
+<!-- 📸 Upload -->
+<div class="upload-box">
+  <h2>📸 Upload Plantation Photos</h2>
+  <input type="file" id="imageInput" multiple accept="image/*">
+</div>
+
+<div id="preview"></div>
+
+<footer>
+  🌿 Save Trees • Save Earth 🌿
+</footer>
+
+<script>
+let count = 0;
+
+function addTree() {
+  count++;
+  document.getElementById("count").innerText = count;
+}
+
+function resetTree() {
+  count = 0;
+  document.getElementById("count").innerText = count;
+}
+
+document.getElementById("imageInput").addEventListener("change", function(event){
+  let preview = document.getElementById("preview");
+  preview.innerHTML = "";
+
+  let files = event.target.files;
+
+  for(let i=0;i<files.length;i++){
+    let reader = new FileReader();
+
+    reader.onload = function(e){
+      let img = document.createElement("img");
+      img.src = e.target.result;
+      preview.appendChild(img);
+    }
+
+    reader.readAsDataURL(files[i]);
+  }
+});
+</script>
+
+</body>
+</html>
